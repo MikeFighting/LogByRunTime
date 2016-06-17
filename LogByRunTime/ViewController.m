@@ -7,8 +7,25 @@
 //
 
 #import "ViewController.h"
+#import "UIButton+Addition.h"
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIView *logTapView;
+@property (weak, nonatomic) IBOutlet UIView *logTapViewTwo;
+@property (weak, nonatomic) IBOutlet UITableView *logTableView;
+@property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton0;
+@property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton1;
+@property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton2;
+@property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton3;
+
+
+@property (nonatomic, strong) NSArray *logCellTitleArray;
+
+// 为埋点所做的标记
+@property (nonatomic, copy) NSString *logTapCondation;
+@property (nonatomic, copy) NSString *someModelId;
+
+
 
 @end
 
@@ -17,8 +34,111 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    UITapGestureRecognizer *tapGestureOne = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    [self.logTapViewTwo addGestureRecognizer:tapGestureOne];
+    
+    UITapGestureRecognizer *tapGestureTwo = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapActionByCondition)];
+    [self.logTapView addGestureRecognizer:tapGestureTwo];
+    
+    // 这里只对原理加以说明，此处可以优化
+
+    self.logCommonActionButton0.zhLogTitle = @"bt0id";
+    self.logCommonActionButton1.zhLogTitle = @"bt1id";
+    self.logCommonActionButton2.zhLogTitle = @"bt2id";
+    self.logCommonActionButton3.zhLogTitle = @"bt3id";
+    
+    
 }
 
+
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+    return self.logCellTitleArray.count;
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"logCell"];
+    if (!cell) {
+        
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"logCell"];
+        
+    }
+    cell.textLabel.text = self.logCellTitleArray[indexPath.row];
+    return cell;
+    
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    // 这里上传modelID，上传字段是"s1"
+    self.someModelId = [NSString stringWithFormat:@"modelId%ld",indexPath.row];
+    
+    
+}
+
+#pragma mark - tapAction
+- (void)tapAction:(UITapGestureRecognizer *)tapGesture{
+
+    NSLog(@"无条件,埋点上传");
+    
+    
+}
+
+// 这里面可能有很多的判断
+- (void)tapActionByCondition{
+
+    BOOL isTrue = YES;
+    
+    if (isTrue) {
+        
+        if (YES) {
+            
+            if (YES) {
+                NSLog(@"有条件,埋点上传");
+                self.logTapCondation = @"1";
+            }
+        }
+    }else{
+    
+                self.logTapCondation = @"0";
+    }
+    
+}
+
+#pragma mark - buttonAction
+
+- (IBAction)leftButtonControlAction:(UIButton *)sender {
+    
+    
+}
+
+- (IBAction)rightButtonControlAction:(UIButton *)sender {
+    
+}
+
+- (IBAction)commonButtonControlAction:(UIButton *)sender {
+    
+    
+}
+
+#pragma mark - setter and getter
+- (NSArray *)logCellTitleArray{
+
+    if (!_logCellTitleArray) {
+        
+        _logCellTitleArray = @[@"logCell0",@"logCell1",@"logCell2",@"logCell3"];
+        
+    }
+    
+    return _logCellTitleArray;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

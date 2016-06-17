@@ -15,6 +15,13 @@
 		275DD5511D12E960001DB61D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 275DD54F1D12E960001DB61D /* LaunchScreen.storyboard */; };
 		275DD55C1D12E960001DB61D /* LogByRunTimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD55B1D12E960001DB61D /* LogByRunTimeTests.m */; };
 		275DD5671D12E960001DB61D /* LogByRunTimeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5661D12E960001DB61D /* LogByRunTimeUITests.m */; };
+		275DD5761D1363C1001DB61D /* ZHSwizzleTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5751D1363C1001DB61D /* ZHSwizzleTool.m */; };
+		275DD57B1D1363DF001DB61D /* UIControl+HYSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5781D1363DF001DB61D /* UIControl+HYSwizzle.m */; };
+		275DD57C1D1363DF001DB61D /* UIViewController+HYSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD57A1D1363DF001DB61D /* UIViewController+HYSwizzle.m */; };
+		275DD57F1D136415001DB61D /* ZHLogEventDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD57E1D136415001DB61D /* ZHLogEventDataCenter.m */; };
+		275DD5811D13651D001DB61D /* HYLogInfoDataCenter.plist in Resources */ = {isa = PBXBuildFile; fileRef = 275DD5801D13651D001DB61D /* HYLogInfoDataCenter.plist */; };
+		275DD5841D136C86001DB61D /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5831D136C86001DB61D /* Aspects.m */; };
+		275DD58B1D13764E001DB61D /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD58A1D13764E001DB61D /* UIButton+Addition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +58,19 @@
 		275DD5621D12E960001DB61D /* LogByRunTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogByRunTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		275DD5661D12E960001DB61D /* LogByRunTimeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogByRunTimeUITests.m; sourceTree = "<group>"; };
 		275DD5681D12E960001DB61D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		275DD5741D1363C1001DB61D /* ZHSwizzleTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHSwizzleTool.h; sourceTree = "<group>"; };
+		275DD5751D1363C1001DB61D /* ZHSwizzleTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHSwizzleTool.m; sourceTree = "<group>"; };
+		275DD5771D1363DF001DB61D /* UIControl+HYSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+HYSwizzle.h"; sourceTree = "<group>"; };
+		275DD5781D1363DF001DB61D /* UIControl+HYSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+HYSwizzle.m"; sourceTree = "<group>"; };
+		275DD5791D1363DF001DB61D /* UIViewController+HYSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HYSwizzle.h"; sourceTree = "<group>"; };
+		275DD57A1D1363DF001DB61D /* UIViewController+HYSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HYSwizzle.m"; sourceTree = "<group>"; };
+		275DD57D1D136415001DB61D /* ZHLogEventDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHLogEventDataCenter.h; sourceTree = "<group>"; };
+		275DD57E1D136415001DB61D /* ZHLogEventDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHLogEventDataCenter.m; sourceTree = "<group>"; };
+		275DD5801D13651D001DB61D /* HYLogInfoDataCenter.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HYLogInfoDataCenter.plist; sourceTree = "<group>"; };
+		275DD5821D136C86001DB61D /* Aspects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aspects.h; sourceTree = "<group>"; };
+		275DD5831D136C86001DB61D /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
+		275DD5891D13764E001DB61D /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
+		275DD58A1D13764E001DB61D /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +121,15 @@
 		275DD5401D12E960001DB61D /* LogByRunTime */ = {
 			isa = PBXGroup;
 			children = (
-				275DD5441D12E960001DB61D /* AppDelegate.h */,
-				275DD5451D12E960001DB61D /* AppDelegate.m */,
+				275DD5881D136DC7001DB61D /* Tools */,
+				275DD5871D136D88001DB61D /* Others */,
+				275DD5861D136D64001DB61D /* Addition */,
+				275DD57D1D136415001DB61D /* ZHLogEventDataCenter.h */,
+				275DD57E1D136415001DB61D /* ZHLogEventDataCenter.m */,
 				275DD5471D12E960001DB61D /* ViewController.h */,
 				275DD5481D12E960001DB61D /* ViewController.m */,
 				275DD54A1D12E960001DB61D /* Main.storyboard */,
-				275DD54D1D12E960001DB61D /* Assets.xcassets */,
-				275DD54F1D12E960001DB61D /* LaunchScreen.storyboard */,
-				275DD5521D12E960001DB61D /* Info.plist */,
+				275DD5801D13651D001DB61D /* HYLogInfoDataCenter.plist */,
 				275DD5411D12E960001DB61D /* Supporting Files */,
 			);
 			path = LogByRunTime;
@@ -138,6 +159,42 @@
 				275DD5681D12E960001DB61D /* Info.plist */,
 			);
 			path = LogByRunTimeUITests;
+			sourceTree = "<group>";
+		};
+		275DD5861D136D64001DB61D /* Addition */ = {
+			isa = PBXGroup;
+			children = (
+				275DD5771D1363DF001DB61D /* UIControl+HYSwizzle.h */,
+				275DD5781D1363DF001DB61D /* UIControl+HYSwizzle.m */,
+				275DD5791D1363DF001DB61D /* UIViewController+HYSwizzle.h */,
+				275DD57A1D1363DF001DB61D /* UIViewController+HYSwizzle.m */,
+				275DD5891D13764E001DB61D /* UIButton+Addition.h */,
+				275DD58A1D13764E001DB61D /* UIButton+Addition.m */,
+			);
+			name = Addition;
+			sourceTree = "<group>";
+		};
+		275DD5871D136D88001DB61D /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				275DD5441D12E960001DB61D /* AppDelegate.h */,
+				275DD54D1D12E960001DB61D /* Assets.xcassets */,
+				275DD5521D12E960001DB61D /* Info.plist */,
+				275DD54F1D12E960001DB61D /* LaunchScreen.storyboard */,
+				275DD5451D12E960001DB61D /* AppDelegate.m */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		275DD5881D136DC7001DB61D /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				275DD5821D136C86001DB61D /* Aspects.h */,
+				275DD5741D1363C1001DB61D /* ZHSwizzleTool.h */,
+				275DD5751D1363C1001DB61D /* ZHSwizzleTool.m */,
+				275DD5831D136C86001DB61D /* Aspects.m */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				275DD5511D12E960001DB61D /* LaunchScreen.storyboard in Resources */,
+				275DD5811D13651D001DB61D /* HYLogInfoDataCenter.plist in Resources */,
 				275DD54E1D12E960001DB61D /* Assets.xcassets in Resources */,
 				275DD54C1D12E960001DB61D /* Main.storyboard in Resources */,
 			);
@@ -272,7 +330,13 @@
 			files = (
 				275DD5491D12E960001DB61D /* ViewController.m in Sources */,
 				275DD5461D12E960001DB61D /* AppDelegate.m in Sources */,
+				275DD58B1D13764E001DB61D /* UIButton+Addition.m in Sources */,
+				275DD57C1D1363DF001DB61D /* UIViewController+HYSwizzle.m in Sources */,
+				275DD57F1D136415001DB61D /* ZHLogEventDataCenter.m in Sources */,
+				275DD57B1D1363DF001DB61D /* UIControl+HYSwizzle.m in Sources */,
+				275DD5761D1363C1001DB61D /* ZHSwizzleTool.m in Sources */,
 				275DD5431D12E960001DB61D /* main.m in Sources */,
+				275DD5841D136C86001DB61D /* Aspects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
