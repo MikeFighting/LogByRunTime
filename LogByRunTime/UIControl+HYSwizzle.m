@@ -104,7 +104,9 @@
 
     if ([logInfoDic allValues].count) {
         
-        NSLog(@"需要保存到本地等待上传的数据:%@",logInfoDic);
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"showLogResult" object:logInfoDic];
+        NSLog(@"需存到本地以备上传的数据:%@",logInfoDic);
         
     }
     

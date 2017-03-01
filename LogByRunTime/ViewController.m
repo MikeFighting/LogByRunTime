@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "UIButton+Addition.h"
+#import "MMAlertView.h"
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *logTapView;
@@ -18,13 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton2;
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton3;
 
-
 @property (nonatomic, strong) NSArray *logCellTitleArray;
-
 // 为埋点所做的标记
 @property (nonatomic, copy) NSString *logTapCondation;
 @property (nonatomic, copy) NSString *someModelId;
-
 
 
 @end
@@ -42,16 +40,33 @@
     [self.logTapView addGestureRecognizer:tapGestureTwo];
     
     // 这里只对原理加以说明，此处可以优化
-
     self.logCommonActionButton0.zhLogTitle = @"bt0id";
     self.logCommonActionButton1.zhLogTitle = @"bt1id";
     self.logCommonActionButton2.zhLogTitle = @"bt2id";
     self.logCommonActionButton3.zhLogTitle = @"bt3id";
     
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTheResult:) name:@"showLogResult" object:nil];
+
 }
 
+- (void)showTheResult:(NSNotification *)notification {
 
+    NSMutableString *alertString = [NSMutableString string];
+    NSDictionary *logInfoDic = notification.object;
+    NSArray *keysArray = logInfoDic.allKeys;
+    for (NSString *keyString in keysArray) {
+        
+        NSString *keyValueString = [NSString stringWithFormat:@"%@:%@",keyString,logInfoDic[keyString]];
+        [alertString appendString:keyValueString];
+        
+    }
+    
+    MMAlertView *alertView = [[MMAlertView alloc]initWithConfirmTitle:@"埋点数据" detail:alertString];
+    [alertView show];
+    
+
+    
+}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -95,19 +110,19 @@
 - (void)tapActionByCondition{
 
     BOOL isTrue = YES;
-    
     if (isTrue) {
         
         if (YES) {
             
             if (YES) {
+                
                 NSLog(@"有条件,埋点上传");
                 self.logTapCondation = @"1";
             }
         }
     }else{
     
-                self.logTapCondation = @"0";
+             self.logTapCondation = @"0";
     }
     
 }

@@ -9,7 +9,6 @@
 #import "UIViewController+HYSwizzle.h"
 #import "ZHSwizzleTool.h"
 #import "ZHLogEventDataCenter.h"
-
 #import <objc/runtime.h>
 #import "Aspects.h"
 @implementation UIViewController (HYSwizzle)
@@ -123,7 +122,9 @@
                 
                 if ([logInfoDic allValues].count) {
                     
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"showLogResult" object:logInfoDic];
                     NSLog(@"需存到本地以备上传的数据:%@",logInfoDic);
+
                     
                 }
             
