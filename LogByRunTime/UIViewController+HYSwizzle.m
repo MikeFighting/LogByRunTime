@@ -43,19 +43,15 @@
         NSRange controlActionRange = [methodString rangeOfString:@"ControlAction"];
         BOOL notControlAction = controlActionRange.length == 0 ? YES : NO;
         if (isResponseOriginSEL && notControlAction) {
-
-        [[self class] aspect_hookSelector:originalSEL withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, ...){
             
-                NSMutableArray *mutablArr = [[NSMutableArray alloc]initWithCapacity:5];
-                va_list arglist;
-                va_start(arglist, info);
-                [mutablArr addObject:info];
-                id arg;
-                while ((arg = va_arg(arglist, id))) {
-                    NSLog(@"获取的参数值是::%@",arg);//2,3,4
-                    [mutablArr addObject:arg];
-                }
-
+            [[self class] aspect_hookSelector:originalSEL withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, ...){
+                
+                NSArray *arguments = [info arguments];
+                id methodOwner = [info instance];
+                
+                NSInvocation *originInvocation = [info originalInvocation];
+                void *arg0 = NULL;
+                [originInvocation getArgument:&arg0 atIndex:0];
                 NSString *selectorName = NSStringFromSelector(originalSEL);
                 NSString *pathString = [[NSBundle mainBundle]pathForResource:@"HYLogInfoDataCenter" ofType:@"plist"];
                 NSDictionary *plistDic = [NSDictionary dictionaryWithContentsOfFile:pathString];
@@ -79,7 +75,7 @@
                     // 满足条件
                     if (conditionValue == actualValue ) {
                         [konwnParaDic setObject:conditionValuesArray[0] forKey:@"co"];
-                    // 不满足条件直接返回
+                        // 不满足条件直接返回
                     }else{
                         
                         return;
@@ -116,14 +112,14 @@
                     
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"showLogResult" object:logInfoDic];
                     NSLog(@"需存到本地以备上传的数据:%@",logInfoDic);
-
+                    
                     
                 }
-            
+                
             } error:nil];
-
+            
         }
-}
+    }
     [self swizzleviewWillAppear:animated];
 
 }

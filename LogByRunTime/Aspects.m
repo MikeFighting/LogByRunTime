@@ -57,12 +57,14 @@ typedef struct _AspectBlock {
 
 // Tracks all aspects for an object/class.
 @interface AspectsContainer : NSObject
+
 - (void)addAspect:(AspectIdentifier *)aspect withOptions:(AspectOptions)injectPosition;
 - (BOOL)removeAspect:(id)aspect;
 - (BOOL)hasAspects;
 @property (atomic, copy) NSArray *beforeAspects;
 @property (atomic, copy) NSArray *insteadAspects;
 @property (atomic, copy) NSArray *afterAspects;
+
 @end
 
 @interface AspectTracker : NSObject
@@ -75,6 +77,7 @@ typedef struct _AspectBlock {
 - (void)removeSubclassTracker:(AspectTracker *)subclassTracker hookingSelectorName:(NSString *)selectorName;
 - (BOOL)subclassHasHookedSelectorName:(NSString *)selectorName;
 - (NSSet *)subclassTrackersHookingSelectorName:(NSString *)selectorName;
+
 @end
 
 @interface NSInvocation (Aspects)
@@ -118,12 +121,14 @@ static id aspect_add(id self, SEL selector, AspectOptions options, id block, NSE
     NSCParameterAssert(self);
     NSCParameterAssert(selector);
     NSCParameterAssert(block);
-
+    
     __block AspectIdentifier *identifier = nil;
     aspect_performLocked(^{
         if (aspect_isSelectorAllowedAndTrack(self, selector, options, error)) {
+            
             AspectsContainer *aspectContainer = aspect_getContainerForObject(self, selector);
             identifier = [AspectIdentifier identifierWithSelector:selector object:self options:options block:block error:error];
+            
             if (identifier) {
                 [aspectContainer addAspect:identifier withOptions:options];
 
@@ -172,6 +177,7 @@ static SEL aspect_aliasForSelector(SEL selector) {
 
 static NSMethodSignature *aspect_blockMethodSignature(id block, NSError **error) {
     AspectBlockRef layout = (__bridge void *)block;
+    
 	if (!(layout->flags & AspectBlockFlagsHasSignature)) {
         NSString *description = [NSString stringWithFormat:@"The block %@ doesn't contain a type signature.", block];
         AspectError(AspectErrorMissingBlockSignature, description);
@@ -187,7 +193,8 @@ static NSMethodSignature *aspect_blockMethodSignature(id block, NSError **error)
         AspectError(AspectErrorMissingBlockSignature, description);
         return nil;
     }
-	const char *signature = (*(const char **)desc);
+    const char *signature = (*(const char **)desc);
+//    const char *signature = "v32@0:8@16@24";
 	return [NSMethodSignature signatureWithObjCTypes:signature];
 }
 
@@ -195,7 +202,8 @@ static BOOL aspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature,
     NSCParameterAssert(blockSignature);
     NSCParameterAssert(object);
     NSCParameterAssert(selector);
-
+    
+    return YES;
     BOOL signaturesMatch = YES;
     NSMethodSignature *methodSignature = [[object class] instanceMethodSignatureForSelector:selector];
     if (blockSignature.numberOfArguments > methodSignature.numberOfArguments) {
@@ -220,7 +228,7 @@ static BOOL aspect_isCompatibleBlockSignature(NSMethodSignature *blockSignature,
             }
         }
     }
-
+    
     if (!signaturesMatch) {
         NSString *description = [NSString stringWithFormat:@"Block signature %@ doesn't match %@.", blockSignature, methodSignature];
         AspectError(AspectErrorIncompatibleBlockSignature, description);
@@ -272,6 +280,7 @@ static void aspect_prepareClassAndHookSelector(NSObject *self, SEL selector, NSE
     Class klass = aspect_hookClass(self, error);
     Method targetMethod = class_getInstanceMethod(klass, selector);
     IMP targetMethodIMP = method_getImplementation(targetMethod);
+
     if (!aspect_isMsgForwardIMP(targetMethodIMP)) {
         // Make a method alias for the existing method implementation, it not already copied.
         const char *typeEncoding = method_getTypeEncoding(targetMethod);
@@ -510,7 +519,7 @@ static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL
         invocation.selector = originalSelector;
         SEL originalForwardInvocationSEL = NSSelectorFromString(AspectsForwardInvocationSelectorName);
         if ([self respondsToSelector:originalForwardInvocationSEL]) {
-            ((void( *)(id, SEL, NSInvocation *))objc_msgSend)(self, originalForwardInvocationSEL, invocation);
+            ((void(*)(id, SEL, NSInvocation *))objc_msgSend)(self, originalForwardInvocationSEL, invocation);
         }else {
             [self doesNotRecognizeSelector:invocation.selector];
         }
@@ -528,6 +537,7 @@ static void __ASPECTS_ARE_BEING_CALLED__(__unsafe_unretained NSObject *self, SEL
 static AspectsContainer *aspect_getContainerForObject(NSObject *self, SEL selector) {
     NSCParameterAssert(self);
     SEL aliasSelector = aspect_aliasForSelector(selector);
+    
     AspectsContainer *aspectContainer = objc_getAssociatedObject(self, aliasSelector);
     if (!aspectContainer) {
         aspectContainer = [AspectsContainer new];
@@ -710,6 +720,7 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     }
     return hookingSubclassTrackers;
 }
+
 - (NSString *)trackedClassName {
     return NSStringFromClass(self.trackedClass);
 }
@@ -814,7 +825,6 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     if (!aspect_isCompatibleBlockSignature(blockSignature, object, selector, error)) {
         return nil;
     }
-
     AspectIdentifier *identifier = nil;
     if (blockSignature) {
         identifier = [AspectIdentifier new];
@@ -831,13 +841,11 @@ static void aspect_deregisterTrackedSelector(id self, SEL selector) {
     NSInvocation *blockInvocation = [NSInvocation invocationWithMethodSignature:self.blockSignature];
     NSInvocation *originalInvocation = info.originalInvocation;
     NSUInteger numberOfArguments = self.blockSignature.numberOfArguments;
-
     // Be extra paranoid. We already check that on hook registration.
     if (numberOfArguments > originalInvocation.methodSignature.numberOfArguments) {
         AspectLogError(@"Block has too many arguments. Not calling %@", info);
         return NO;
     }
-
     // The `self` of the block will be the AspectInfo. Optional.
     if (numberOfArguments > 1) {
         [blockInvocation setArgument:&info atIndex:1];
