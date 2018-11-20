@@ -8,7 +8,7 @@
 #import "MFLogParamPram.h"
 @interface MFLogParamPram()
 
-@property (nonatomic, assign, readonly) NSInteger position;
+@property (nonatomic, assign, readwrite) NSInteger position;
 @property (nonatomic, copy, readwrite) NSString *key;
 @property (nonatomic, copy, readwrite) NSString *path;
 
@@ -17,7 +17,13 @@
 @implementation MFLogParamPram
 
 - (instancetype)initWithDic:(NSDictionary *)rawDic {
-return nil;
+    self = [super init];
+    if (self) {
+        self.position = [rawDic[@"position"] integerValue];
+        self.key = rawDic[@"key"] ?: @"";
+        self.path = rawDic[@"path"] ?: @"";
+    }
+    return self;
 }
 
 @end

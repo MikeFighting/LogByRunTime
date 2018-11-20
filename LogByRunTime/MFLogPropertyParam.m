@@ -17,7 +17,13 @@
 @implementation MFLogPropertyParam
 
 - (instancetype)initWithDic:(NSDictionary *)rawDic {
-return nil;
+
+    self = [super init];
+    if (self) {
+        self.key = rawDic[@"key"] ?: @"";
+        self.path = rawDic[@"path"] ?: @"";
+     }
+    return self;
 }
 
 @end
