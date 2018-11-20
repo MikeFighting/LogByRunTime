@@ -10,16 +10,16 @@
 #import <objc/runtime.h>
 @implementation UIButton (Addition)
 
-static void *key;
+static NSInteger buttonKey;
+
 - (void)setZhLogTitle:(NSString *)zhLogTitle{
 
-    objc_setAssociatedObject(self, key, zhLogTitle, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &buttonKey, zhLogTitle, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-
 }
 - (NSString *)zhLogTitle{
 
-  return  objc_getAssociatedObject(self, key);
+  return  objc_getAssociatedObject(self, &buttonKey);
     
 }
 @end
