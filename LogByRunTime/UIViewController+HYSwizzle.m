@@ -13,7 +13,6 @@
 #import "Aspects.h"
 @implementation UIViewController (HYSwizzle)
 
-
 + (void)load{
     
     static dispatch_once_t dispatch_once_token;
@@ -23,7 +22,6 @@
         SEL originlSelector = @selector(viewDidAppear:);
         SEL newSelector = @selector(swizzleviewWillAppear:);
         [ZHSwizzleTool zhSwizzleWithClass:[self class ] originalSelector:originlSelector swizzleSelector:newSelector];
-        
     });
     
 }
@@ -35,7 +33,6 @@
     // 1.获取某个类的方法列表
     NSDictionary *classMthodDic = plistDic[NSStringFromClass([self class])];
     if (classMthodDic == nil) return; // 该类的方法不需要hook
-
     NSArray *methodNameArray = [classMthodDic allKeys];
     
     for (NSString *methodString in methodNameArray) {
@@ -43,15 +40,22 @@
         __block SEL originalSEL = NSSelectorFromString(methodString);
         // 这里需要判断是否是UIControl的事件，以防止两个地方同时hook，造成重复上传
         BOOL isResponseOriginSEL = [self respondsToSelector:originalSEL];
-        
         NSRange controlActionRange = [methodString rangeOfString:@"ControlAction"];
         BOOL notControlAction = controlActionRange.length == 0 ? YES : NO;
-        
         if (isResponseOriginSEL && notControlAction) {
 
-        [[self class] aspect_hookSelector:originalSEL withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info){
-                
-                
+        [[self class] aspect_hookSelector:originalSEL withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> info, ...){
+            
+                NSMutableArray *mutablArr = [[NSMutableArray alloc]initWithCapacity:5];
+                va_list arglist;
+                va_start(arglist, info);
+                [mutablArr addObject:info];
+                id arg;
+                while ((arg = va_arg(arglist, id))) {
+                    NSLog(@"获取的参数值是::%@",arg);//2,3,4
+                    [mutablArr addObject:arg];
+                }
+
                 NSString *selectorName = NSStringFromSelector(originalSEL);
                 NSString *pathString = [[NSBundle mainBundle]pathForResource:@"HYLogInfoDataCenter" ofType:@"plist"];
                 NSDictionary *plistDic = [NSDictionary dictionaryWithContentsOfFile:pathString];
@@ -59,30 +63,23 @@
                 NSDictionary *classMthodDic = plistDic[NSStringFromClass([self class])];
                 // 3.获取其中某个方法的参数列表
                 NSArray *parameterArray = classMthodDic[selectorName];
-                
-                
                 ZHLogEventDataCenter *logCenter = [[ZHLogEventDataCenter alloc]init];
                 NSMutableDictionary *logInfoDic = [NSMutableDictionary dictionary];
-                
                 // 4.对已经知道数值的数据进行埋点的处理
                 NSMutableDictionary *konwnParaDic = [NSMutableDictionary dictionaryWithDictionary:parameterArray[0]];
                 NSString *coValueString = [konwnParaDic objectForKey:@"co"];
                 if ([coValueString containsString:@"&"]) {
-                    
+                    // 埋点是有条件的
                     NSArray *conditionValuesArray = [coValueString componentsSeparatedByString:@"&"];
-                    
                     NSString *conditionString = conditionValuesArray[1];
                     NSArray *conditionValues = [conditionString componentsSeparatedByString:@"="];
-                    
                     NSInteger conditionValue = [conditionValues[1] integerValue];
                     NSInteger actualValue = [[self valueForKey:conditionValues[0]] integerValue];
                     
                     // 满足条件
                     if (conditionValue == actualValue ) {
-                        
                         [konwnParaDic setObject:conditionValuesArray[0] forKey:@"co"];
-                        
-                        // 不满足条件直接返回
+                    // 不满足条件直接返回
                     }else{
                         
                         return;
@@ -92,12 +89,10 @@
                 
                 // 5.没有条件则直接处理
                 [logInfoDic addEntriesFromDictionary:konwnParaDic];
-                
                 // 6.对其余的字符串进行相应的处理
                 for (int i = 1; i < parameterArray.count; i ++) {
                     
-                    NSString * paraString =parameterArray[i];
-                    
+                    NSString *paraString =parameterArray[i];
                     if ([paraString containsString:@"&"]) {
                         
                         // 这个数值是需要从所在的类获取的
@@ -113,9 +108,6 @@
                             NSString *valueString = [logCenter performSelector:paraSel withObject:nil];
                             [logInfoDic setObject:valueString forKey:paraString];
                         }
-                        
-                        
-                        
                     }
                     
                 }
