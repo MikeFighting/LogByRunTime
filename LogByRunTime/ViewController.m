@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "UIButton+Addition.h"
 #import "MMAlertView.h"
+#import <objc/runtime.h>
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIView *logTapView;
@@ -18,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton1;
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton2;
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton3;
-
 @property (nonatomic, strong) NSArray *logCellTitleArray;
 // 为埋点所做的标记
 @property (nonatomic, copy) NSString *logTapCondation;
@@ -39,13 +39,16 @@
     UITapGestureRecognizer *tapGestureTwo = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapActionByCondition)];
     [self.logTapView addGestureRecognizer:tapGestureTwo];
     
-    // 这里只对原理加以说明，此处可以优化
     self.logCommonActionButton0.zhLogTitle = @"bt0id";
     self.logCommonActionButton1.zhLogTitle = @"bt1id";
     self.logCommonActionButton2.zhLogTitle = @"bt2id";
     self.logCommonActionButton3.zhLogTitle = @"bt3id";
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTheResult:) name:@"showLogResult" object:nil];
+    
+    const char *typeCodingTry = method_getTypeEncoding(class_getInstanceMethod([self class], @selector(tableView:didSelectRowAtIndexPath:)));
+    NSLog(@"%s",typeCodingTry);
+    
 
 }
 
@@ -63,8 +66,6 @@
     
     MMAlertView *alertView = [[MMAlertView alloc]initWithConfirmTitle:@"埋点数据" detail:alertString];
     [alertView show];
-    
-
     
 }
 
@@ -89,7 +90,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     // 这里上传modelID，上传字段是"s1"
@@ -102,7 +102,7 @@
 - (void)tapAction:(UITapGestureRecognizer *)tapGesture{
 
     NSLog(@"无条件,埋点上传");
-    
+    self.tapTag = @"tapTagString";
     
 }
 

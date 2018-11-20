@@ -25,6 +25,7 @@
 		270E13981E66B92A00F4E9D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E138B1E66B92A00F4E9D6 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		270E13991E66B92A00F4E9D6 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E138D1E66B92A00F4E9D6 /* View+MASAdditions.m */; };
 		270E139A1E66B92A00F4E9D6 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E13901E66B92A00F4E9D6 /* ViewController+MASAdditions.m */; };
+		270E139F1E690FE900F4E9D6 /* ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 270E139E1E690FE900F4E9D6 /* ViewControllerTests.m */; };
 		275DD5431D12E960001DB61D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5421D12E960001DB61D /* main.m */; };
 		275DD5461D12E960001DB61D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5451D12E960001DB61D /* AppDelegate.m */; };
 		275DD5491D12E960001DB61D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5481D12E960001DB61D /* ViewController.m */; };
@@ -101,6 +102,7 @@
 		270E138E1E66B92A00F4E9D6 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		270E138F1E66B92A00F4E9D6 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		270E13901E66B92A00F4E9D6 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		270E139E1E690FE900F4E9D6 /* ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerTests.m; sourceTree = "<group>"; };
 		275DD53E1D12E960001DB61D /* LogByRunTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LogByRunTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		275DD5421D12E960001DB61D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		275DD5441D12E960001DB61D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				275DD55B1D12E960001DB61D /* LogByRunTimeTests.m */,
+				270E139E1E690FE900F4E9D6 /* ViewControllerTests.m */,
 				275DD55D1D12E960001DB61D /* Info.plist */,
 			);
 			path = LogByRunTimeTests;
@@ -478,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				270E139F1E690FE900F4E9D6 /* ViewControllerTests.m in Sources */,
 				275DD55C1D12E960001DB61D /* LogByRunTimeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
