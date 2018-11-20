@@ -28,7 +28,6 @@
 
 - (void)swizzleSendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
     
-    
     // 1.先执行原来的方法，以防止有和类上下文有关的数值
     [self swizzleSendAction:action to:target forEvent:event];
     NSString *selectorName = NSStringFromSelector(action);
@@ -105,9 +104,7 @@
     }
 
     if ([logInfoDic allValues].count) {
-        
-        
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"showLogResult" object:logInfoDic];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MFUploadLogNotificationKey" object:logInfoDic];
         NSLog(@"需存到本地以备上传的数据:%@",logInfoDic);
         
     }

@@ -41,6 +41,11 @@
 		275DD5811D13651D001DB61D /* HYLogInfoDataCenter.plist in Resources */ = {isa = PBXBuildFile; fileRef = 275DD5801D13651D001DB61D /* HYLogInfoDataCenter.plist */; };
 		275DD5841D136C86001DB61D /* Aspects.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD5831D136C86001DB61D /* Aspects.m */; };
 		275DD58B1D13764E001DB61D /* UIButton+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 275DD58A1D13764E001DB61D /* UIButton+Addition.m */; };
+		27D49ABA21A3F158009E6BFF /* Loginfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 27D49AB921A3F158009E6BFF /* Loginfo.json */; };
+		27D49ABD21A3F4B8009E6BFF /* MFLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D49ABC21A3F4B8009E6BFF /* MFLogModel.m */; };
+		27D49ACD21A3F995009E6BFF /* MFLogReadyParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D49ACB21A3F994009E6BFF /* MFLogReadyParam.m */; };
+		27D49AD021A3FAFD009E6BFF /* MFLogParamPram.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D49ACE21A3FAFD009E6BFF /* MFLogParamPram.m */; };
+		27D49AD321A3FBAF009E6BFF /* MFLogPropertyParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D49AD221A3FBAF009E6BFF /* MFLogPropertyParam.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +137,15 @@
 		275DD5831D136C86001DB61D /* Aspects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		275DD5891D13764E001DB61D /* UIButton+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Addition.h"; sourceTree = "<group>"; };
 		275DD58A1D13764E001DB61D /* UIButton+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Addition.m"; sourceTree = "<group>"; };
+		27D49AB921A3F158009E6BFF /* Loginfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loginfo.json; sourceTree = "<group>"; };
+		27D49ABB21A3F4B8009E6BFF /* MFLogModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFLogModel.h; sourceTree = "<group>"; };
+		27D49ABC21A3F4B8009E6BFF /* MFLogModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MFLogModel.m; sourceTree = "<group>"; };
+		27D49ACB21A3F994009E6BFF /* MFLogReadyParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLogReadyParam.m; sourceTree = "<group>"; };
+		27D49ACC21A3F995009E6BFF /* MFLogReadyParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLogReadyParam.h; sourceTree = "<group>"; };
+		27D49ACE21A3FAFD009E6BFF /* MFLogParamPram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLogParamPram.m; sourceTree = "<group>"; };
+		27D49ACF21A3FAFD009E6BFF /* MFLogParamPram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLogParamPram.h; sourceTree = "<group>"; };
+		27D49AD121A3FBAE009E6BFF /* MFLogPropertyParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLogPropertyParam.h; sourceTree = "<group>"; };
+		27D49AD221A3FBAF009E6BFF /* MFLogPropertyParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLogPropertyParam.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +173,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		270E135E1E66B79C00F4E9D6 /* HYPOPView */ = {
+		270E135E1E66B79C00F4E9D6 /* MMPOPView */ = {
 			isa = PBXGroup;
 			children = (
 				270E135F1E66B79C00F4E9D6 /* MMAlertTableView.h */,
@@ -179,7 +193,7 @@
 				270E136D1E66B79C00F4E9D6 /* MMSheetView.m */,
 				270E136E1E66B79C00F4E9D6 /* README.md */,
 			);
-			path = HYPOPView;
+			path = MMPOPView;
 			sourceTree = "<group>";
 		};
 		270E13771E66B92A00F4E9D6 /* Masonry */ = {
@@ -237,8 +251,9 @@
 		275DD5401D12E960001DB61D /* LogByRunTime */ = {
 			isa = PBXGroup;
 			children = (
+				27D49ABE21A3F4BE009E6BFF /* Models */,
 				270E13771E66B92A00F4E9D6 /* Masonry */,
-				270E135E1E66B79C00F4E9D6 /* HYPOPView */,
+				270E135E1E66B79C00F4E9D6 /* MMPOPView */,
 				275DD5881D136DC7001DB61D /* Tools */,
 				275DD5871D136D88001DB61D /* Others */,
 				275DD5861D136D64001DB61D /* Addition */,
@@ -296,6 +311,7 @@
 		275DD5871D136D88001DB61D /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				27D49AB921A3F158009E6BFF /* Loginfo.json */,
 				275DD5441D12E960001DB61D /* AppDelegate.h */,
 				275DD5451D12E960001DB61D /* AppDelegate.m */,
 				275DD54D1D12E960001DB61D /* Assets.xcassets */,
@@ -314,6 +330,21 @@
 				275DD5751D1363C1001DB61D /* ZHSwizzleTool.m */,
 			);
 			name = Tools;
+			sourceTree = "<group>";
+		};
+		27D49ABE21A3F4BE009E6BFF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				27D49AD121A3FBAE009E6BFF /* MFLogPropertyParam.h */,
+				27D49AD221A3FBAF009E6BFF /* MFLogPropertyParam.m */,
+				27D49ACF21A3FAFD009E6BFF /* MFLogParamPram.h */,
+				27D49ACE21A3FAFD009E6BFF /* MFLogParamPram.m */,
+				27D49ACC21A3F995009E6BFF /* MFLogReadyParam.h */,
+				27D49ACB21A3F994009E6BFF /* MFLogReadyParam.m */,
+				27D49ABB21A3F4B8009E6BFF /* MFLogModel.h */,
+				27D49ABC21A3F4B8009E6BFF /* MFLogModel.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,6 +453,7 @@
 				275DD5511D12E960001DB61D /* LaunchScreen.storyboard in Resources */,
 				275DD5811D13651D001DB61D /* HYLogInfoDataCenter.plist in Resources */,
 				275DD54E1D12E960001DB61D /* Assets.xcassets in Resources */,
+				27D49ABA21A3F158009E6BFF /* Loginfo.json in Resources */,
 				275DD54C1D12E960001DB61D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,8 +481,10 @@
 			files = (
 				270E13921E66B92A00F4E9D6 /* MASConstraint.m in Sources */,
 				270E13951E66B92A00F4E9D6 /* MASViewAttribute.m in Sources */,
+				27D49AD021A3FAFD009E6BFF /* MFLogParamPram.m in Sources */,
 				270E13931E66B92A00F4E9D6 /* MASConstraintMaker.m in Sources */,
 				275DD5491D12E960001DB61D /* ViewController.m in Sources */,
+				27D49AD321A3FBAF009E6BFF /* MFLogPropertyParam.m in Sources */,
 				270E13701E66B79C00F4E9D6 /* MMAlertView.m in Sources */,
 				270E13741E66B79C00F4E9D6 /* MMPopupWindow.m in Sources */,
 				270E13721E66B79C00F4E9D6 /* MMPopupitem.m in Sources */,
@@ -463,7 +497,9 @@
 				270E13941E66B92A00F4E9D6 /* MASLayoutConstraint.m in Sources */,
 				270E13711E66B79C00F4E9D6 /* MMPopupCategory.m in Sources */,
 				275DD57C1D1363DF001DB61D /* UIViewController+HYSwizzle.m in Sources */,
+				27D49ACD21A3F995009E6BFF /* MFLogReadyParam.m in Sources */,
 				275DD57F1D136415001DB61D /* ZHLogEventDataCenter.m in Sources */,
+				27D49ABD21A3F4B8009E6BFF /* MFLogModel.m in Sources */,
 				275DD57B1D1363DF001DB61D /* UIControl+HYSwizzle.m in Sources */,
 				270E13761E66B79C00F4E9D6 /* README.md in Sources */,
 				270E13981E66B92A00F4E9D6 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,

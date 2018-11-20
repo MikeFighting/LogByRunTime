@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "method": "ViewController#tableView:didSelectRowAtIndexPath:",
+            "params": {
+                "key": "detailButton1Click",
+                "id": "112",
+                "text": "button1",
+                "abtest": "A"
+            },
+            "parameterParams": [
+                {
+                    "position": 1,
+                    "key": "position",
+                    "path": "row"
+                }
+            ],
+            "attributeParams": [
+                {
+                    "key": "userName",
+                    "path": "userName"
+                }
+            ]
+        }
+    ]
+}

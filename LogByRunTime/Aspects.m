@@ -194,7 +194,6 @@ static NSMethodSignature *aspect_blockMethodSignature(id block, NSError **error)
         return nil;
     }
     const char *signature = (*(const char **)desc);
-//    const char *signature = "v32@0:8@16@24";
 	return [NSMethodSignature signatureWithObjCTypes:signature];
 }
 

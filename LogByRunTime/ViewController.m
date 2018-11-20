@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "UIButton+Addition.h"
+#import "UIViewController+HYSwizzle.h"
 #import "MMAlertView.h"
 #import <objc/runtime.h>
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -20,10 +21,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton2;
 @property (weak, nonatomic) IBOutlet UIButton *logCommonActionButton3;
 @property (nonatomic, strong) NSArray *logCellTitleArray;
-// 为埋点所做的标记
+@property (nonatomic, copy) NSString *userName;
+
 @property (nonatomic, copy) NSString *logTapCondation;
 @property (nonatomic, copy) NSString *someModelId;
-
 
 @end
 
@@ -44,8 +45,8 @@
     self.logCommonActionButton2.zhLogTitle = @"bt2id";
     self.logCommonActionButton3.zhLogTitle = @"bt3id";
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTheResult:) name:@"showLogResult" object:nil];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showTheResult:) name:kMFUploadLogNotificationKey object:nil];
+    self.userName = @"MikeFighting";
     const char *typeCodingTry = method_getTypeEncoding(class_getInstanceMethod([self class], @selector(tableView:didSelectRowAtIndexPath:)));
     NSLog(@"%s",typeCodingTry);
     
@@ -94,8 +95,6 @@
 
     // 这里上传modelID，上传字段是"s1"
     self.someModelId = [NSString stringWithFormat:@"modelId%ld",indexPath.row];
-    
-    
 }
 
 #pragma mark - tapAction
