@@ -9,7 +9,7 @@
 #import "UIControl+HYSwizzle.h"
 #import "ZHSwizzleTool.h"
 #import "ZHLogEventDataCenter.h"
-
+#import <objc/runtime.h>
 @implementation UIControl (HYSwizzle)
 
 +(void)load{
@@ -19,36 +19,37 @@
         
         SEL originSEL = @selector(sendAction:to:forEvent:);
         SEL swizzleSEL = @selector(swizzleSendAction:to:forEvent:);
-        
-        [ZHSwizzleTool zhSwizzleWithClass:[self class]originalSelector:originSEL swizzleSelector:swizzleSEL];
-        
+        Class processedClass = [self class];
+        Method originMethod = class_getInstanceMethod(processedClass, originSEL);
+        Method swizzleMethod = class_getInstanceMethod(processedClass, swizzleSEL);
+        method_exchangeImplementations(originMethod, swizzleMethod);
     });
 }
+
 - (void)swizzleSendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event{
     
     
-    // 1.先执行原来的方法，以防止和类上下文相关的数值
+    // 1.先执行原来的方法，以防止有和类上下文有关的数值
     [self swizzleSendAction:action to:target forEvent:event];
-
     NSString *selectorName = NSStringFromSelector(action);
     NSString *pathString = [[NSBundle mainBundle]pathForResource:@"HYLogInfoDataCenter" ofType:@"plist"];
     NSDictionary *plistDic = [NSDictionary dictionaryWithContentsOfFile:pathString];
+    
     // 2.获取某个类的方法列表
     NSDictionary *classMthodDic = plistDic[NSStringFromClass([target class])];
+    
     // 3.获取其中某个方法的参数列表
     NSArray *parameterArray = classMthodDic[selectorName];
-    
-    
     ZHLogEventDataCenter *logCenter = [[ZHLogEventDataCenter alloc]init];
     NSMutableDictionary *logInfoDic = [NSMutableDictionary dictionary];
-    
     // 4.对已经知道数值的数据进行埋点的处理
     NSMutableDictionary *konwnParaDic = [NSMutableDictionary dictionaryWithDictionary:parameterArray[0]];
     NSString *coValueString = [konwnParaDic objectForKey:@"co"];
+    
+    
     if ([coValueString containsString:@"&"]) {
         
         NSArray *conditionValuesArray = [coValueString componentsSeparatedByString:@"&"];
-        
         NSString *conditionString = conditionValuesArray[1];
         NSArray *conditionValues = [conditionString componentsSeparatedByString:@"="];
         
@@ -79,14 +80,15 @@
             NSString *valueString = @"";
             NSArray *paraArray = [paraString componentsSeparatedByString:@"&"];
             if ([paraArray[1] isEqualToString:@"zhLogTitle"]) {
-                
-                valueString = [self valueForKey:@"zhLogTitle"];
+            
+            valueString = [self valueForKey:@"zhLogTitle"];
                 
             }else{
                 
             valueString = [target valueForKey:paraArray[1]];
            
             }
+            
              [logInfoDic setObject:valueString forKey:paraArray[0]];
             
         }else{
